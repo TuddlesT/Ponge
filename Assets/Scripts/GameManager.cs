@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 	public float gameHeight = 4.75f;
-	public float paddleHeight = 3.5f;
-	public float paddleSpeed = 5f;
+	public float paddleHeight = 2f;
+	public float paddleSpeed = 4.25f;
 	public int playerOneScore = 0;
 	public int playerTwoScore = 0;
 	public GameObject playerOne;
@@ -36,16 +36,20 @@ public class GameManager : MonoBehaviour {
 		StartCoroutine(ballSpawnTime());
 	}
 	public void Score (GameObject goal) {
+		int winner = 1;
 		if (goal == playerOneGoal) {
 			playerOneScore += 1;
 			canvas.transform.GetChild(1).GetComponent<Text>().text = (playerOneScore < 10 ? "0":"")+playerOneScore;
+			winner = 1;
 		}
 		if (goal == playerTwoGoal) {
 			playerTwoScore += 1;
 			canvas.transform.GetChild(2).GetComponent<Text>().text = (playerTwoScore < 10 ? "0":"")+playerTwoScore;
+			winner = 2;
 		}
 		Destroy(ball.transform.gameObject);
 		ball = Instantiate (ballPrefab, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<BallMovement>();
+		ball.startDirectionChange(winner);
 		ball.gameManager = this;
 		StartCoroutine(ballSpawnTime());
 	}

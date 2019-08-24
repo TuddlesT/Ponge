@@ -100,9 +100,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  initialX: 300
-  speedY: 100
+  speedY: 300
   initialY: 150
+  startDirection: -1
+  initialX: 600
 --- !u!212 &212350354499089252
 SpriteRenderer:
   m_ObjectHideFlags: 1
