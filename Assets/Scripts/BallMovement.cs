@@ -9,11 +9,15 @@ public class BallMovement : MonoBehaviour {
 	public float initialY = 150;
 	public int startDirection = -1;
 	public float initialX = 600;
+
+	public AudioSource audioData;
+
 	// Use this for initialization
 	public void Init () {
 		initialX = initialX * startDirection;
 		body = gameObject.GetComponent<Rigidbody2D>();
 		body.AddForce(new Vector2(initialX, Random.Range(-initialY, initialY)));
+		audioData = GetComponent<AudioSource>();
 	}
 	public void startDirectionChange (int winner) {
 		if (winner == 1) {
@@ -27,6 +31,7 @@ public class BallMovement : MonoBehaviour {
 		if (collision.gameObject.tag == "Player") {
 			float difference = collision.gameObject.transform.position.y - transform.position.y;
 			body.AddForce(new Vector2(0, -difference * speedY / collision.gameObject.transform.localScale.y));
+			audioData.Play();
 		}
 	}
 	void OnTriggerEnter2D(Collider2D collider) {
